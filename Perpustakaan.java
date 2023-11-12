@@ -9,10 +9,10 @@ public class Perpustakaan {
         int maxTransaksi = 100;
         String[][] transaksi = new String[maxTransaksi][7]; // Array untuk menyimpan data transaksi
         String[][] daftarBuku = {
-            { "1.Air", "2000" },
-            { "2.Hujan", "2000" },
-            { "3.Robin", "2500" },
-            { "4.Konsep Teknologi", "1000" }
+                { "1.Air", "2000" },
+                { "2.Hujan", "2000" },
+                { "3.Robin", "2500" },
+                { "4.Konsep Teknologi", "1000" }
         };
 
         int Transaksi = 0; // Indeks transaksi saat ini
@@ -28,7 +28,7 @@ public class Perpustakaan {
                 do {
                     String NamaPeminjam, NIM, kategori;
                     int JumlahHari;
-                    double  pembayaran, kembalian;
+                    double pembayaran, kembalian;
 
                     System.out.println("*****List Buku*****");
                     for (int i = 0; i < daftarBuku.length; i++) {
@@ -43,7 +43,7 @@ public class Perpustakaan {
 
                     int totalBuku = 0;
                     double totalBayar = 0.0;
-
+                    String bukuDipinjam="";
                     // Nested loop untuk memasukkan beberapa buku dalam satu transaksi
                     while (true) {
                         System.out.print("Masukkan nomor buku yang dipinjam (0 untuk selesai): ");
@@ -54,23 +54,22 @@ public class Perpustakaan {
 
                         System.out.print("Jumlah Buku: ");
                         int JumlahBuku = input.nextInt();
+                        totalBuku += JumlahBuku;
 
                         double harga_buku = Double.parseDouble(daftarBuku[nomorBuku - 1][1]);
 
                         double diskon = 0.0;
-                        if (kategori.equals("warga polinema") && JumlahBuku > 4) {
+                        if (kategori.equalsIgnoreCase("polinema") && totalBuku > 3) {
                             diskon = 0.10;
-                        } else if (JumlahBuku > 5) {
-                            diskon = 0.02;
+                        } else if (totalBuku > 3) {
+                            diskon = 0.05;
                         }
 
-                        double subTotal = (JumlahBuku * harga_buku)
-                                - (JumlahBuku * harga_buku * diskon);
-
-                        totalBuku += JumlahBuku;
+                        double subTotal = (totalBuku * harga_buku)
+                                - (totalBuku * harga_buku * diskon);
                         totalBayar += subTotal;
-
                         System.out.println("Subtotal transaksi buku ini: " + subTotal);
+                        bukuDipinjam += daftarBuku[nomorBuku - 1][0] + " (" + JumlahBuku + " buku), ";
                     }
 
                     System.out.print("Masukkan jumlah hari pinjam: ");
@@ -85,7 +84,7 @@ public class Perpustakaan {
 
                     transaksi[Transaksi][0] = NIM;
                     transaksi[Transaksi][1] = NamaPeminjam;
-                    transaksi[Transaksi][2] = "Multiple Books";
+                    transaksi[Transaksi][2] = bukuDipinjam;
                     transaksi[Transaksi][3] = Integer.toString(totalBuku);
                     transaksi[Transaksi][4] = Integer.toString(JumlahHari);
                     transaksi[Transaksi][5] = Double.toString(totalBayar);
@@ -94,7 +93,7 @@ public class Perpustakaan {
                     System.out.println("***********Transaksi***********");
                     System.out.println("NIM : " + NIM);
                     System.out.println("Nama : " + NamaPeminjam);
-                    System.out.println("Buku : Multiple Books");
+                    System.out.println("Buku : "+bukuDipinjam);
                     System.out.println("Jumlah Buku : " + totalBuku);
                     System.out.println("Lama Pinjam : " + JumlahHari + " hari");
                     System.out.println("Bayar : " + totalBayar);
@@ -135,7 +134,7 @@ public class Perpustakaan {
                         if ((jenisPencarian.equalsIgnoreCase("Nama Buku")
                                 && transaksi[i][2].equalsIgnoreCase(nilaiCari))
                                 || (jenisPencarian.equalsIgnoreCase("Nama Peminjam")
-                                && transaksi[i][1].equalsIgnoreCase(nilaiCari))) {
+                                        && transaksi[i][1].equalsIgnoreCase(nilaiCari))) {
                             System.out.println("Transaksi ke-" + (i + 1));
                             System.out.println("NIM : " + transaksi[i][0]);
                             System.out.println("Nama : " + transaksi[i][1]);
@@ -161,6 +160,6 @@ public class Perpustakaan {
             }
         }
         input.close();
-        
+
     }
 }
