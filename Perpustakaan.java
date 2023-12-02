@@ -18,7 +18,6 @@ public class Perpustakaan {
             displayMenu();
             int menu = input.nextInt();
 
-<<<<<<< HEAD
             switch (menu) {
                 case 1:
                     pinjamBuku();
@@ -38,7 +37,7 @@ public class Perpustakaan {
                     System.exit(0);
                 default:
                     System.out.println("Menu tidak valid. Silakan pilih menu yang valid.");
-=======
+                    
             if (menu == 1) {
                 do {
                     String NamaPeminjam, NIM, kategori;
@@ -172,10 +171,10 @@ public class Perpustakaan {
                 break; // Keluar dari program
             } else {
                 System.out.println("Menu tidak valid. Silakan pilih menu yang valid.");
->>>>>>> 9a4896686bfa5f04fe5da1da70aebcaeadf655de
             }
         }
-    }
+     }
+ }
 
     static void displayMenu() {
         System.out.println("Menu:");
